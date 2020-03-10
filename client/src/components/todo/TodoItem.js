@@ -1,19 +1,44 @@
-import React from "react";
-// import { Link, Redirect } from "react-router-dom";
+import React, { useEffect, Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loadTodos } from "../../actions/todo";
+import { setAlert } from "../../actions/alert";
+import SingleTodo from "./singleTodo";
+import SingleTodoCompleted from "./completedSingleTodo";
 
-const TodoItem = () => {
+const TodoItem = ({ loadTodos, todo: { todos } }) => {
+  useEffect(() => {
+    loadTodos();
+  }, [loadTodos]);
+
   return (
-    <div class='todoItem'>
-      <ul id='myUL'>
-        <li>Hit the gym</li>
-        <li class='checked'>Pay bills</li>
-        <li>Meet George</li>
-        <li>Buy eggs</li>
-        <li>Read a book</li>
-        <li>Organize office</li>
-      </ul>
-    </div>
+    <Fragment>
+      <div class='todoItem'>
+        <ul id='myUL'>
+          {todos
+            .filter(todo => todo.isComplete === false)
+            .map(todo => (
+              <SingleTodo key={todo._id} todo={todo} />
+            ))}
+          {todos
+            .filter(todo => todo.isComplete === true)
+            .map(todo => (
+              <SingleTodoCompleted key={todo._id} todo={todo} />
+            ))}
+        </ul>
+      </div>
+    </Fragment>
   );
 };
 
-export default TodoItem;
+TodoItem.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  loadTodos: PropTypes.func.isRequired,
+  todo: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  todo: state.todo
+});
+
+export default connect(mapStateToProps, { loadTodos, setAlert })(TodoItem);

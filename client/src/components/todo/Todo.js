@@ -1,28 +1,61 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addTodo, loadTodos } from "../../actions/todo";
+import { setAlert } from "../../actions/alert";
 
-const Todo = () => {
+import TodoItem from "./TodoItem";
+
+const Todo = ({ addTodo }) => {
+  const [formData, setFormData] = useState({
+    taskname: ""
+  });
+
+  const { taskname } = formData;
+
+  const onChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async e => {
+    // console.log(formData);
+    e.preventDefault();
+    addTodo(formData);
+    setFormData({ taskname: "" });
+  };
+
   return (
     <Fragment>
       <div class='add-todo'>
-        <input
-          type='text'
-          class=' todo-list-input'
-          placeholder='What do you need to do today?'
-        />
-        <span className='addBtn'>Add</span>
+        <form className='form' onSubmit={e => onSubmit(e)}>
+          <input
+            type='text'
+            class=' todo-list-input'
+            placeholder='What do you need to do today?'
+            name='taskname'
+            value={taskname}
+            onChange={e => onChange(e)}
+          />
+          {/* <span type='submit' className='addBtn' onSubmit={e => onSubmit(e)}>
+            Add
+          </span> */}
+          <input type='submit' className='btn btn-primary' />
+        </form>
       </div>
 
-      <div class='todoItem'>
-        <ul id='myUL'>
-          <li>Hit the gym</li>
-          <li class='checked'>Pay bills</li>
-          <li>Meet George</li>
-          <li>Buy eggs</li>
-          <li>Read a book</li>
-          <li>Organize office</li>
-        </ul>
-      </div>
+      <TodoItem />
     </Fragment>
   );
 };
-export default Todo;
+
+addTodo.propTypes = {
+  addTodo: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  todo: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  todo: state.todo
+});
+
+export default connect(mapStateToProps, { addTodo, loadTodos, setAlert })(Todo);

@@ -7,3 +7,7 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
+export const TODO_ERROR = "TODO_ERROR";
+export const ADD_TODO = "ADD_TODO";
+export const LOAD_TODOS = "LOAD_TODOS";
+export const DELETE_TODO = "DELETE_TODO";
