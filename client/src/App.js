@@ -1,22 +1,32 @@
-import React, { Fragment } from "react";
-import Landing from "./components/layout/Landing";
-import NavBar from "./components/layout/Navbar";
-import Login from "./components/auth/Login";
-import Alert from "./components/layout/Alert";
-import Register from "./components/auth/Register";
+import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Landing from "./components/layout/Landing";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import "./App.css";
-
+import Alert from "./components/layout/Alert";
 //redux
 import { Provider } from "react-redux";
 import store from "./store";
+import { loadUser } from "./actions/auth";
+import setAuthToken from "./utils/setAuthToken";
+//
 
-function App() {
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
         <Fragment>
-          <NavBar />
+          <Navbar />
+
           <Route exact path='/' component={Landing} />
           <section className='container'>
             <Alert />
@@ -29,6 +39,6 @@ function App() {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;
