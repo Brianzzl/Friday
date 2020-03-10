@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://Brian123:Brian123@cluster0-bybcy.mongodb.net/FridayRebuilddd?retryWrites=true&w=majority",
+  "mongoURI": "mongodb://brian999:brian999@ds049170.mlab.com:49170/heroku_70sw8805",
   "jwtSecret": "mysecrettoken"
 }
