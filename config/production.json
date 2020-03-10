@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://Brian123:Brian123@cluster0-bybcy.mongodb.net/FridayRebuilddd?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
+}
