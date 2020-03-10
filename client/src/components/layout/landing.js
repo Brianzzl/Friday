@@ -1,15 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const landing = () => {
+const Landing = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/todo' />;
+  }
+
   return (
     <section className='landing'>
       <div className='dark-overlay'>
         <div className='landing-inner'>
-          <h1 className='x-large'>Be productive</h1>
+          <h1 className='x-large'>Be a productive</h1>
           <p className='lead'>
-            Create your own Todo List. Work efficiently and enjoy the weekend
-            and fried chicken!
+            Create your TodoList. Work efficiently and enjoy the weekend and
+            fried chicken!
           </p>
           <div className='buttons'>
             <Link to='/register' className='btn btn-primary'>
@@ -25,4 +31,12 @@ const landing = () => {
   );
 };
 
-export default landing;
+Landing.prototype = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Landing);

@@ -25,7 +25,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   //reditect if login
   if (isAuthenticated) {
-    return <Redirect to='/' />;
+    return <Redirect to='/todo' />;
   }
 
   return (
