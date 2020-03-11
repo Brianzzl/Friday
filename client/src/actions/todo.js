@@ -68,7 +68,7 @@ export const toggleTodo = id => async dispatch => {
     // load todo
 
     const res = await axios.get("/api/todo");
-    // console.log("the is is " + id);
+
     // console.log(res.data);
     dispatch({
       type: LOAD_TODOS,

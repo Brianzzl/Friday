@@ -59,16 +59,16 @@ router.post(
 //@access Private
 router.put("/:id", auth, async (req, res) => {
   try {
-    const id = req.params.id;
-    const status = !req.body.isComplete;
-    const todo = await Todo.findOneAndUpdate(
-      { _id: id },
-      { isComplete: status }
-    );
+    // const id = req.params.id;
+    // const status = !req.body.isComplete;
+    const todo = await Todo.findById(req.params.id);
 
     if (!todo) {
       return res.status(404).json({ msg: "Todo not found" });
     }
+    const status = !todo.isComplete;
+    todo.isComplete = status;
+    await todo.save();
     res.json(todo);
   } catch (error) {
     console.error(err.message);
