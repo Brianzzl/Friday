@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb://brian999:brian999@ds049170.mlab.com:49170/heroku_70sw8805",
+  "MONGO_URI": "test",
   "jwtSecret": "mysecrettoken"
 }
