@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
+// const config = require("config");
+require("dotenv").config();
 
 module.exports = async function(req, res, next) {
   const token = req.header("x-auth-token");
@@ -10,14 +11,19 @@ module.exports = async function(req, res, next) {
 
   // Verify token
   try {
-    await jwt.verify(token, config.get("jwtSecret"), (error, decoded) => {
-      if (error) {
-        res.status(401).json({ msg: "Token is not valid" });
-      } else {
-        req.user = decoded.user;
-        next();
+    await jwt.verify(
+      token,
+      //  config.get("jwtSecret"),
+      process.env.JWTT,
+      (error, decoded) => {
+        if (error) {
+          res.status(401).json({ msg: "Token is not valid" });
+        } else {
+          req.user = decoded.user;
+          next();
+        }
       }
-    });
+    );
   } catch (err) {
     console.error("something wrong with auth middleware");
     res.status(500).json({ msg: "Server Error" });
