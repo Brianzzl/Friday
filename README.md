@@ -2,7 +2,7 @@
 FridayList is a TodoList app that allow you to create and manage your tasks.
 
 # Deployed link
-https://dashboard.heroku.com/apps/whispering-reef-14378
+https://whispering-reef-14378.herokuapp.com/
 
 # Getting Started
 1. Run ```npm install``` in root folder
